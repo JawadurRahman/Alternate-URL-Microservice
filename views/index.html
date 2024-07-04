@@ -1,0 +1,96 @@
+ <!DOCTYPE html>
+
+<html>
+  <head>
+    <title>URL Shortener Microservice</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://replit.com/public/icons/favicon-196.png"
+    />
+    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+
+  </head>
+
+  <body>
+    <h1>Alternate URL Microservice</h1>
+    <main>
+      <section>
+        <form action="api/shorturl" method="POST">
+          <fieldset>
+            <legend>Alternate URL </legend>
+            <label for="url_input">URL:</label>
+            <input id="url_input" type="text" name="url" placeholder="https://www.google.com/" />
+            <input id="post_btn" type="submit" value="POST URL" />
+          </fieldset>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>add more websites and refresh to see more links!!</p>
+      <ul id="url_list">
+
+      </ul>
+    </footer>
+  </body>
+</html>
+
+
+<script>
+/*
+ Server Work below
+*/
+let SERVER_URL = "https://url-shortener.jawadurrahman.repl.co/grp8Route.json";
+
+/*
+ takes value to determine what to get from the server and outputs text to HTML
+*/
+document.addEventListener('DOMContentLoaded', () => {
+  fetchLinks();
+});
+//document.querySelectorAll('button');
+  
+function fetchLinks() {
+  fetch(SERVER_URL)
+	.then(response => response.json())
+	.then(data => {
+  console.log(data);
+let list = document.getElementById("url_list");
+list.innerHTML = "";
+for (let i in data) {
+  let html = `<div><a href="https://url-shortener.jawadurrahman.repl.co/${data[i]._id}">https://url-shortener.jawadurrahman.repl.co/${data[i]._id}</a> <span id="name_${data[i]._id}">${data[i].name}</span> 
+  <input type="submit" class="btn" id="${data[i]._id}" value="Delete">
+  <form style="display: inline;" method="post" action="/update">
+  <input style="display: none;" type="text" name="_id" value="${data[i]._id}">
+<input style="display: none;" type="text" name="name" value="${data[i].name}">
+  <input type="submit" value="Update">
+  
+  </form>    
+
+  </div>`;
+  list.innerHTML += html;
+}
+
+// Creates click event listeners for all delete buttons 
+const btns = document.querySelectorAll('.btn');
+btns.forEach(btn => {
+  btn.addEventListener('click', deleteLink);
+}); 
+
+});
+  
+}
+
+async function deleteLink() {
+  console.log(this.id);
+  const response = await fetch("/" + this.id, {
+      method: "DELETE"
+   });
+
+  // Successfully deleted link
+  if (response.ok) {
+    fetchLinks();
+  }
+}
+
+</script>

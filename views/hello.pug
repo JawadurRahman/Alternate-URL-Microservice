@@ -1,0 +1,26 @@
+h1 Update Link HELLO: #{dbId}
+br
+div 
+  textarea(name=url rows=4 cols=50) #{urlName}
+br
+
+block content
+  button(onclick='clickme()')  Update
+  script.
+    async function clickme() {
+      const newUrl = document.querySelector("textarea").value;
+      console.log(newUrl);
+      const response = await fetch(`/#{dbId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: "#{dbId}", name: newUrl })
+    });
+
+    if (response.ok) {      
+      alert("Updated");
+      window.location.href="https://url-shortener.jawadurrahman.repl.co/";
+    } else {
+      alert("Url does not exist");
+      window.location.href="https://url-shortener.jawadurrahman.repl.co/";
+    }
+    }

@@ -16,8 +16,6 @@ h3 {
   margin-top: 30px;
 }
 
-
-
 .user-stories li {
   margin-bottom: 1em;
 }
@@ -47,4 +45,56 @@ input[type='text'] {
 
 ul {
   text-align: left;
+  padding: 0;
+  list-style: none;
+}
+
+.url-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 1px;
+  margin-bottom: 1px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.url-link {
+  color: #4caf50;
+  text-decoration: none;
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.url-name {
+  margin-right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.btn, .update-form input[type='submit'] {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.update-form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+
+.update-form input[type='submit'] {
+  background-color: #2196f3;
 }

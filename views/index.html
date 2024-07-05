@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>URL Shortener Microservice</title>
+    <title>Alternate URL Microservice</title>
     <link
       rel="icon"
       type="image/png"
@@ -18,16 +18,16 @@
       <section>
         <form action="api/shorturl" method="POST">
           <fieldset>
-            <legend>Alternate URL </legend>
+            <legend>Create an alternate url - Remember to add HTTP/S</legend>
             <label for="url_input">URL:</label>
             <input id="url_input" type="text" name="url" placeholder="https://www.google.com/" />
-            <input id="post_btn" type="submit" value="POST URL" />
+            <input id="post_btn" type="submit" value="Create" />
           </fieldset>
         </form>
       </section>
     </main>
     <footer>
-      <p>add more websites and refresh to see more links!!</p>
+      <h3><strong>Read</strong> Urls from Database</h3>
       <ul id="url_list">
 
       </ul>
@@ -40,7 +40,7 @@
 /*
  Server Work below
 */
-let SERVER_URL = "https://url-shortener.jawadurrahman.repl.co/grp8Route.json";
+let SERVER_URL = "http://localhost:3000/grp8Route.json";
 
 /*
  takes value to determine what to get from the server and outputs text to HTML
@@ -58,7 +58,7 @@ function fetchLinks() {
 let list = document.getElementById("url_list");
 list.innerHTML = "";
 for (let i in data) {
-  let html = `<div><a href="https://url-shortener.jawadurrahman.repl.co/${data[i]._id}">https://url-shortener.jawadurrahman.repl.co/${data[i]._id}</a> <span id="name_${data[i]._id}">${data[i].name}</span> 
+  let html = `<div><a href="http://localhost:3000/${data[i]._id}">http://localhost:3000/${data[i]._id}</a> <span id="name_${data[i]._id}">${data[i].name}</span> 
   <input type="submit" class="btn" id="${data[i]._id}" value="Delete">
   <form style="display: inline;" method="post" action="/update">
   <input style="display: none;" type="text" name="_id" value="${data[i]._id}">

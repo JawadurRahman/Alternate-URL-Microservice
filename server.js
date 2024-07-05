@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const dns = require('dns');
 const urlparser = require('url');
 
-const mySecret = process.env['MONGO_URI'];
+const mySecret = process.env.DB_URI || "mongodb://localhost:27017";
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 mongoose.connect(mySecret, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -98,7 +98,7 @@ app.post('/api/shorturl', function(req, res) {
       const returnObj = await Url.find({});
       const updateResult = await UrlCount.updateOne({}, { $inc: { counter: 1 } });
       const returnObj2 = await UrlCount.find({});
-      //console.log("Count Urls", returnObj2[0].counter);
+      
       const counter = returnObj2[0].counter;
       //console.log(returnObj.length.toString(36));
       //console.log(counter.toString(36));
@@ -107,7 +107,7 @@ app.post('/api/shorturl', function(req, res) {
       url.save((e, data) => {
 
         //res.json({ original_url: data.name , short_url:"https://www.shorturl.agency/" + data.id });
-        res.redirect("https://url-shortener.jawadurrahman.repl.co/");
+        res.redirect("http://localhost:3000/");
       });
     }
   });
